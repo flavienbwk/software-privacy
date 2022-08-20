@@ -1,0 +1,42 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'develop'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+
+  build-linux:
+    name: Ubuntu 20.04 build
+    runs-on: ubuntu-20.04
+
+    steps:
+
+      - name: Extract branch name
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+        id: extract_branch
+
+      - name: Extract branch name on pull request
+        if: github.event_name == 'pull_request'
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF})" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+          ref: ${{ env.BRANCH_NAME }}
+
+      - name: Build dev version
+        run: |
+          docker-compose build
+
+      - name: Build release version
+        run: |
+          VERSION=$(cat ./VERSION) docker-compose -f release.docker-compose.yml build

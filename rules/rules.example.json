@@ -1,0 +1,23 @@
+[
+    {
+        "filter": "text-full",
+        "parameters": {
+            "match": "Johnny",
+            "replace": "Eva"
+        }
+    },
+    {
+        "filter": "text-regex",
+        "parameters": {
+            "match": "[0-9]{3}",
+            "replace": "999"
+        }
+    },
+    {
+        "filter": "image-similar-ssim",
+        "parameters": {
+            "source_image": "/inputs/tesla-logo-red.png",
+            "replace_image": "/inputs/tesla-logo-black.png"
+        }
+    }
+]

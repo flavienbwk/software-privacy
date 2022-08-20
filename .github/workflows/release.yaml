@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build-linux:
+    name: Docker prod release
+    runs-on: ubuntu-20.04
+
+    steps:
+
+      - name: Extract branch name
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+        id: extract_branch
+
+      - name: Extract branch name on pull request
+        if: github.event_name == 'pull_request'
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF})" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+          ref: ${{ env.BRANCH_NAME }}
+
+      - name: Get version
+        run: |
+          version=$(cat ./VERSION)
+          version=${version##+( )} # Trim left whitespaces
+          version=${version%%+( )} # Trim right whitespaces
+          echo "VERSION=$version" >> $GITHUB_ENV
+          echo "Version : $version"
+
+      - name: Build for release
+        run: |
+          VERSION=$VERSION docker-compose -f release.docker-compose.yml build
+          RELEASE_IMAGE=gchr.io/flavienbwk/software-privacy/app:$VERSION
+          if [[ $(docker image ls "$RELEASE_IMAGE" | wc -l) -eq 1 ]]; then
+            echo "Release image not found : $RELEASE_IMAGE"
+            exit 1
+          fi 
+          echo "RELEASE_IMAGE=$RELEASE_IMAGE" >> $GITHUB_ENV
+
+      - name: Push release image
+        run: |
+          docker push "$RELEASE_IMAGE"
+
+      - name: Creating release
+        uses: softprops/action-gh-release@v1
+        if: github.ref == 'refs/heads/main'
+        with:
+          name: $VERSION
+          tag_name: $VERSION
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
