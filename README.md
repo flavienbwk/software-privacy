@@ -14,22 +14,22 @@ Replace sensitive information and avoid personal data in any piece of software o
     git clone https://github.com/flavienbwk/software-privacy
     ```
 
-2. Copy and edit your anonymisation filter rules file and build the app
+2. Copy and edit your privacy filter rules file and build the app
 
     ```bash
     cp ./rules/rules.example.json ./rules/rules.json
     docker-compose build
     ```
 
-3. Edit paths and run the anonymizer
+3. Edit paths and run the privacy
 
     ```bash
     INPUT_PATH=./examples/demo-app \
     OUTPUT_PATH=./examples/demo-app-anonymized \
-        docker-compose run anonymizer
+        docker-compose run privacy
     ```
 
-    :information_source: For idempotence and avoiding any modification in input files, `INPUT_PATH` files are fully copied to `OUTPUT_PATH` before the anonymization process starts.
+    :information_source: For idempotence and avoiding any modification in input files, `INPUT_PATH` files are fully copied to `OUTPUT_PATH` before the privacy process starts.
 
     If you don't want to perform this copy, set the `INPUT_PATH` == `OUTPUT_PATH` and `PERFORM_COPY=false` in the compose configuration. Here's an examle :
 
@@ -37,7 +37,7 @@ Replace sensitive information and avoid personal data in any piece of software o
     INPUT_PATH=./examples/demo-app \
     OUTPUT_PATH=./examples/demo-app \
     PERFORM_COPY=false \
-        docker-compose run anonymizer
+        docker-compose run privacy
     ```
 
 ## Filters
@@ -78,7 +78,7 @@ Replace a string in your files by another.
 
 ### Image
 
-Tries to recognize an image from a source image and replace it with the provided image at the same size.
+Tries to recognize an image from source image in all image files, and replace it with the provided image at the same size.
 
 This filter tries [to guess](https://stackoverflow.com/questions/69338654/find-similar-image-if-resolution-was-changed) if the image found is the same than `source_image` and tries to replace it with the same size by `replace_image`. Quality depends on `replace_image` resolution.
 

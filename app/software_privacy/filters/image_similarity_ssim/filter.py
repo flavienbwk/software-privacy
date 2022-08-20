@@ -9,8 +9,9 @@ from software_privacy.filters.filter import Filter
 
 @dataclass(init=True)
 class FilterParameters:
-    source_image: Optional[str] = ""
-    replace_image: Optional[str] = ""
+    confidence_treshold: float = 0.9
+    source_image: str = ""
+    replace_image: str = ""
 
 
 class FilterImageSimilaritySsim(Filter):

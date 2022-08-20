@@ -1,7 +1,7 @@
 FROM python:3.10-alpine
 
 # python-ldap requirements
-RUN apk update && apk add libc-dev gcc g++
+RUN apk update && apk add libc-dev gcc g++ make
 
 # psycopg2 requirements
 RUN apk add libpq python3-dev py3-pip musl-dev

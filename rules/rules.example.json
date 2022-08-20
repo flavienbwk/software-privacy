@@ -16,6 +16,7 @@
     {
         "filter": "image-similar-ssim",
         "parameters": {
+            "confidence_threshold": 0.9,
             "source_image": "/inputs/tesla-logo-red.png",
             "replace_image": "/inputs/tesla-logo-black.png"
         }
