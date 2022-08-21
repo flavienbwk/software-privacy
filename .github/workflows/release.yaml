@@ -40,16 +40,12 @@ jobs:
       - name: Build for release
         run: |
           VERSION=$VERSION docker-compose -f release.docker-compose.yml build
-          RELEASE_IMAGE=gchr.io/flavienbwk/software-privacy:$VERSION
+          RELEASE_IMAGE=flavienb/software-privacy:$VERSION
           if [[ $(docker image ls "$RELEASE_IMAGE" | wc -l) -eq 1 ]]; then
             echo "Release image not found : $RELEASE_IMAGE"
             exit 1
           fi 
           echo "RELEASE_IMAGE=$RELEASE_IMAGE" >> $GITHUB_ENV
-
-      - name: Push release image
-        run: |
-          docker push "$RELEASE_IMAGE"
 
       - name: Creating release
         uses: softprops/action-gh-release@v1
