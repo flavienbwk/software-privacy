@@ -3,6 +3,8 @@
 [![Dev build](https://github.com/flavienbwk/software-privacy/actions/workflows/build.yaml/badge.svg)](https://github.com/flavienbwk/software-privacy/actions/workflows/build.yaml)
 [![Release build](https://github.com/flavienbwk/software-privacy/actions/workflows/release.yaml/badge.svg)](https://github.com/flavienbwk/software-privacy/actions/workflows/release.yaml)
 [![Release](https://github.com/flavienbwk/software-privacy/actions/workflows/release.yaml/badge.svg?event=release)](https://github.com/flavienbwk/software-privacy/actions/workflows/release.yaml)
+[![MIT license](https://black.readthedocs.io/en/stable/_static/license.svg)](./LICENSE)
+[![Code formatter black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Replace sensitive information and avoid personal data in any piece of software or content with programmable filters.
 
@@ -97,7 +99,7 @@ This filter tries [to guess](https://stackoverflow.com/questions/69338654/find-s
 
 ### Exif remover
 
-Replace exif metadata in images and videos with [exiftool](https://exiftool.org/).
+Replace exif metadata in images, audios and videos with [exiftool](https://exiftool.org/).
 
 ```jsonc
 [

@@ -40,7 +40,7 @@ jobs:
       - name: Build for release
         run: |
           VERSION=$VERSION docker-compose -f release.docker-compose.yml build
-          RELEASE_IMAGE=gchr.io/flavienbwk/software-privacy/app:$VERSION
+          RELEASE_IMAGE=gchr.io/flavienbwk/software-privacy/software-privacy:$VERSION
           if [[ $(docker image ls "$RELEASE_IMAGE" | wc -l) -eq 1 ]]; then
             echo "Release image not found : $RELEASE_IMAGE"
             exit 1
