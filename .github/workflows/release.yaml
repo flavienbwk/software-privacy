@@ -37,15 +37,19 @@ jobs:
           echo "VERSION=$version" >> $GITHUB_ENV
           echo "Version : $version"
 
-      - name: Build for release
+      - name: Build and tag for release
         run: |
           VERSION=$VERSION docker-compose -f release.docker-compose.yml build
-          RELEASE_IMAGE=flavienb/software-privacy:$VERSION
+          IMAGE_NAME=flavienb/software-privacy
+          RELEASE_IMAGE=$IMAGE_NAME:$VERSION
+          RELEASE_IMAGE_LATEST=$IMAGE_NAME:latest
           if [[ $(docker image ls "$RELEASE_IMAGE" | wc -l) -eq 1 ]]; then
             echo "Release image not found : $RELEASE_IMAGE"
             exit 1
-          fi 
+          fi
+          docker tag "${{ env.RELEASE_IMAGE }}" "${{ env.RELEASE_IMAGE_LATEST }}"
           echo "RELEASE_IMAGE=$RELEASE_IMAGE" >> $GITHUB_ENV
+          echo "RELEASE_IMAGE_LATEST=RELEASE_IMAGE_LATEST" >> $GITHUB_ENV
 
       - name: Login to release image
         uses: docker/login-action@v2
@@ -56,6 +60,7 @@ jobs:
       - name: Push release image
         run: |
           docker push "${{ env.RELEASE_IMAGE }}"
+          docker push "${{ env.RELEASE_IMAGE_LATEST }}"
 
       - name: Creating release
         uses: softprops/action-gh-release@v1
