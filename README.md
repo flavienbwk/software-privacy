@@ -12,7 +12,7 @@ Replace sensitive information and avoid personal data in any piece of software o
 
 ```bash
 git clone https://github.com/flavienbwk/software-privacy && cd software-privacy
-docker pull gchr.io/flavienbwk/software-privacy:latest
+docker pull flavienb/software-privacy:latest
 
 INPUT_PATH=./examples/demo-app \
 OUTPUT_PATH=./examples/demo-app-anonymized \
