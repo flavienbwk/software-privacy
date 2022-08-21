@@ -87,10 +87,22 @@ This filter tries [to guess](https://stackoverflow.com/questions/69338654/find-s
     {
         "filter": "image",
         "parameters": {
-            "confidence_threshold": 0.9,
-            "source_image": "/inputs/mysourceimage.png",
-            "replace_image": "/inputs/myreplaceimage.png"
+            "confidence_threshold": 0.8,
+            "source_image": "/usr/inputs/mysourceimage.png",
+            "replace_image": "/usr/inputs/myreplaceimage.png"
         }
+    }
+]
+```
+
+### Exif remover
+
+Replace exif metadata in images and videos with [exiftool](https://exiftool.org/).
+
+```jsonc
+[
+    {
+        "filter": "exif-remover"
     }
 ]
 ```

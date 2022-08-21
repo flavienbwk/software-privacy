@@ -5,7 +5,7 @@ services:
   privacy:
     build: .
     environment:
-      LOG_LEVEL: "DEBUG"
+      LOG_LEVEL: ${LOG_LEVEL:-DEBUG}
       PERFORM_COPY: ${PERFORM_COPY:-true}
     volumes:
       - ${INPUT_PATH}:/usr/input_files:ro

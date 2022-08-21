@@ -6,13 +6,13 @@ from typing import List
 
 import tqdm
 
+from software_privacy.filters.exif_remover.filter import FilterExifRemover
 from software_privacy.filters.filter import Filter
-from software_privacy.filters.text_full.filter import FilterTextFull
-from software_privacy.filters.text_regex.filter import FilterTextRegex
 from software_privacy.filters.image_similarity_ssim.filter import (
     FilterImageSimilaritySsim,
 )
-from software_privacy.filters.image_exif_delete.filter import FilterImageExifDelete
+from software_privacy.filters.text_full.filter import FilterTextFull
+from software_privacy.filters.text_regex.filter import FilterTextRegex
 from software_privacy.logger import Logger
 
 INPUT_FILES_PATH = "/usr/input_files"
@@ -26,7 +26,7 @@ AVAILABLE_RULES = {
     "text-full": FilterTextFull,
     "text-regex": FilterTextRegex,
     "image-similarity-ssim": FilterImageSimilaritySsim,
-    "image-exif-delete": FilterImageExifDelete,
+    "exif-remover": FilterExifRemover,
 }
 
 
@@ -105,7 +105,7 @@ def main() -> int:
     # Applying rules one after the other for each file
     for i, rule in enumerate(rules):
         filter_name = rule["filter"]
-        LOGGER.info(f"Processing rule {i+1} with filter {filter_name}...")
+        LOGGER.info(f"Processing rule {i+1} (filter: {filter_name})...")
         LOGGER.debug(f"Computing files for filter {filter_name}...")
         filter = AVAILABLE_RULES[filter_name]()
         filter_parameters = (
@@ -117,7 +117,7 @@ def main() -> int:
         for file_path in tqdm.tqdm(files, unit="files"):
             LOGGER.debug(f"Processing file {file_path}...")
             filter.process_file(file_path, filter_parameters)
-        LOGGER.info(f"Rule {i+1} done.")
+        LOGGER.info(f"Rule {i+1} (filter: {filter_name}) done.")
 
     LOGGER.debug(f"Reached program end.")
     return 0
