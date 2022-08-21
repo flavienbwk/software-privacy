@@ -38,5 +38,10 @@ jobs:
           docker-compose build
 
       - name: Build release version
+        if: github.event_name == 'pull_request'
+        run: |
+          docker-compose -f release.docker-compose.yml build
+
+      - name: Build release version
         run: |
           VERSION=$(cat ./VERSION) docker-compose -f release.docker-compose.yml build
