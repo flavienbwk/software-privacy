@@ -47,9 +47,9 @@ jobs:
             echo "Release image not found : $RELEASE_IMAGE"
             exit 1
           fi
-          docker tag "${{ env.RELEASE_IMAGE }}" "${{ env.RELEASE_IMAGE_LATEST }}"
+          docker tag "$RELEASE_IMAGE" "$RELEASE_IMAGE_LATEST"
           echo "RELEASE_IMAGE=$RELEASE_IMAGE" >> $GITHUB_ENV
-          echo "RELEASE_IMAGE_LATEST=RELEASE_IMAGE_LATEST" >> $GITHUB_ENV
+          echo "RELEASE_IMAGE_LATEST=$RELEASE_IMAGE_LATEST" >> $GITHUB_ENV
 
       - name: Login to release image
         uses: docker/login-action@v2
