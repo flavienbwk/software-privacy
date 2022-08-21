@@ -57,14 +57,14 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ RELEASE_IMAGE }}
+          tags: ${{ env.RELEASE_IMAGE }}
 
       - name: Creating release
         uses: softprops/action-gh-release@v1
         if: github.ref == 'refs/heads/main'
         with:
-          name: ${{ VERSION }}
-          tag_name: ${{ VERSION }}
+          name: ${{ env.VERSION }}
+          tag_name: ${{ env.VERSION }}
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
