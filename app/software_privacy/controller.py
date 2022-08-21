@@ -12,6 +12,7 @@ from software_privacy.filters.text_regex.filter import FilterTextRegex
 from software_privacy.filters.image_similarity_ssim.filter import (
     FilterImageSimilaritySsim,
 )
+from software_privacy.filters.image_exif_delete.filter import FilterImageExifDelete
 from software_privacy.logger import Logger
 
 INPUT_FILES_PATH = "/usr/input_files"
@@ -25,6 +26,7 @@ AVAILABLE_RULES = {
     "text-full": FilterTextFull,
     "text-regex": FilterTextRegex,
     "image-similarity-ssim": FilterImageSimilaritySsim,
+    "image-exif-delete": FilterImageExifDelete,
 }
 
 

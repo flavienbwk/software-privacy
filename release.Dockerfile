@@ -1,22 +1,26 @@
+FROM python:3.10-alpine AS base
+
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
+
+RUN apk update && apk add python3-dev py3-pip py3-scipy gfortran build-base wget libpng-dev openblas-dev
+
+COPY ./app /usr/app
+RUN pip3 install --upgrade pip==22.2.2 && pip3 install wheel==0.37.1 && pip3 wheel . --wheel-dir=/usr/app/wheels
+
+
 FROM python:3.10-alpine
 
-# python-ldap requirements
-RUN apk update && apk add libc-dev gcc g++
-
-# psycopg2 requirements
-RUN apk add libpq python3-dev py3-pip musl-dev
-
-RUN pip3 install --upgrade pip
-COPY ./app/requirements.txt /requirements.txt
-RUN pip3 install -r /requirements.txt
-
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-RUN mkdir -p /usr/app /usr/logs /usr/rules/logs /usr/inputs
-COPY ./app /usr/app
-
 ARG VERSION
+RUN mkdir -p /usr/app
+WORKDIR /usr/app
+
+#RUN apk update && apk add py3-scipy
+
+COPY --from=base /usr/app /usr/app
+
+RUN pip3 install --upgrade pip==22.2.2 && pip3 install --no-index --find-links=/usr/app/wheels -r /usr/app/requirements.txt
 RUN pip3 install -e /usr/app
 
+RUN mkdir -p /usr/logs /usr/rules/logs /usr/inputs
 ENTRYPOINT [ "python3", "-m", "software_privacy" ]

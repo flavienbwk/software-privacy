@@ -14,11 +14,14 @@
         }
     },
     {
-        "filter": "image-similar-ssim",
+        "filter": "image-similarity-ssim",
         "parameters": {
-            "confidence_threshold": 0.9,
-            "source_image": "/inputs/tesla-logo-red.png",
-            "replace_image": "/inputs/tesla-logo-black.png"
+            "confidence_threshold": 0.8,
+            "source_image": "/usr/inputs/tesla-logo-red.png",
+            "replace_image": "/usr/inputs/tesla-logo-black.jpg"
         }
+    },
+    {
+        "filter": "image-exif-delete"
     }
 ]
