@@ -11,9 +11,14 @@ Replace sensitive information and avoid personal data in any piece of software o
 ## Usage
 
 ```bash
+# Clone project
 git clone https://github.com/flavienbwk/software-privacy && cd software-privacy
 docker pull flavienb/software-privacy:latest
 
+# Copy rules file
+cp ./rules/rules.example.json ./rules/rules.json
+
+# Execute
 INPUT_PATH=./examples/demo-app \
 OUTPUT_PATH=./examples/demo-app-anonymized \
     docker-compose run privacy
