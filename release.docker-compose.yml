@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+
+  privacy:
+    build:
+      args:
+        VERSION: ${VERSION:-latest}
+      context: .
+      dockerfile: release.Dockerfile
+    image: gchr.io/flavienbwk/software-privacy/software-privacy:${VERSION:-latest}
+    environment:
+      LOG_LEVEL: "INFO"
+      PERFORM_COPY: ${PERFORM_COPY:-true}
+    volumes:
+      - ${INPUT_PATH}:/usr/input_files:ro
+      - ${OUTPUT_PATH}:/usr/output_files
+      - ./logs:/usr/logs
+      - ./rules/rules.json:/usr/rules/rules.json:ro
+      - ./inputs:/usr/inputs:ro

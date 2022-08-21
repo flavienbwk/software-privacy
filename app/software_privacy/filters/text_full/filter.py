@@ -1,0 +1,25 @@
+from dataclasses import dataclass
+from typing import Optional
+from software_privacy.filters.filter import Filter
+import fileinput
+
+
+@dataclass(init=True)
+class FilterParameters:
+    match: Optional[str] = ""
+    replace: Optional[str] = ""
+
+
+class FilterTextFull(Filter):
+
+    parameters_dc = FilterParameters
+
+    def __init__(self) -> None:
+        super().__init__(__name__)
+
+    def process_file(self, file_path: str, parameters: FilterParameters) -> None:
+        with open(file_path, 'r') as source_file :
+            filedata = source_file.read()
+        filedata = filedata.replace(parameters.match, parameters.replace)
+        with open(file_path, 'w') as destination_file:
+            destination_file.write(filedata)

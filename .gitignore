@@ -1,0 +1,9 @@
+logs
+software-privacy.psd
+
+rules/*
+!rules/rules.example.json
+
+inputs/*
+!inputs/tesla-logo-black.jpg
+!inputs/tesla-logo-red.png

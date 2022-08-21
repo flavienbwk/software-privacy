@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+
+  privacy:
+    build: .
+    environment:
+      LOG_LEVEL: ${LOG_LEVEL:-DEBUG}
+      PERFORM_COPY: ${PERFORM_COPY:-true}
+    volumes:
+      - ${INPUT_PATH}:/usr/input_files:ro
+      - ${OUTPUT_PATH}:/usr/output_files
+      - ./app:/usr/app
+      - ./logs:/usr/logs
+      - ./rules:/usr/rules:ro
+      - ./inputs:/usr/inputs:ro
