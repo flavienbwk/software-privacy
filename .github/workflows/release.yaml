@@ -54,10 +54,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push release image
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: ${{ env.RELEASE_IMAGE }}
+        run: |
+          docker push "${{ env.RELEASE_IMAGE }}"
 
       - name: Creating release
         uses: softprops/action-gh-release@v1
