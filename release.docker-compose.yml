@@ -8,9 +8,9 @@ services:
         VERSION: ${VERSION:-latest}
       context: .
       dockerfile: release.Dockerfile
-    image: gchr.io/flavienbwk/software-privacy/software-privacy:${VERSION:-latest}
+    image: gchr.io/flavienbwk/software-privacy:${VERSION:-latest}
     environment:
-      LOG_LEVEL: "INFO"
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
       PERFORM_COPY: ${PERFORM_COPY:-true}
     volumes:
       - ${INPUT_PATH}:/usr/input_files:ro

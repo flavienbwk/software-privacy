@@ -8,6 +8,19 @@
 
 Replace sensitive information and avoid personal data in any piece of software or content with programmable filters.
 
+## Usage
+
+```bash
+docker pull gchr.io/flavienbwk/software-privacy:latest
+
+INPUT_PATH=./examples/demo-app \
+OUTPUT_PATH=./examples/demo-app \
+PERFORM_COPY=false \
+    docker-compose run privacy
+```
+
+For demo results, see the [`examples/demo-app-anonymized`](./examples/demo-app-anonymized) directory processed from [`examples/demo-app`](./examples/demo-app).
+
 ## Usage (development)
 
 1. Clone the project
