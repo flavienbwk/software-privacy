@@ -91,16 +91,16 @@ Replace a string in your files by another.
 ]
 ```
 
-### Image
+### Image similarity
 
-Tries to recognize an image from source image in all image files, and replace it with the provided image at the same size.
+Tries to recognize an image from source image in provided files, and replace it with the provided image at the same size.
 
-This filter tries [to guess](https://stackoverflow.com/questions/69338654/find-similar-image-if-resolution-was-changed) if the image found is the same than `source_image` and tries to replace it with the same size by `replace_image`. Quality depends on `replace_image` resolution.
+This filter tries to guess if the image found is the same than `source_image` and tries to replace it with the same size by `replace_image`. Quality depends on `replace_image` resolution.
 
 ```jsonc
 [
     {
-        "filter": "image",
+        "filter": "image-similarity-ssim",
         "parameters": {
             "confidence_threshold": 0.8,
             "source_image": "/usr/inputs/mysourceimage.png",
